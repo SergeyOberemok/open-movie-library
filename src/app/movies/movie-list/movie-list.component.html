@@ -1,3 +1,5 @@
-<ng-container *ngFor="let movie of movies$ | async">
-  <div>{{ movie.Title }}</div>
-</ng-container>
+<div class="wrapper px-4">
+  <ng-container *ngFor="let movie of movies$ | async">
+    <div>{{ movie.Title }}</div>
+  </ng-container>
+</div>

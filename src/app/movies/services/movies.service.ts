@@ -8,11 +8,6 @@ import { API_URLS_TOKEN, API_URLS } from 'src/app/core/shared';
 
 @Injectable()
 export class MoviesService {
-  constructor(
-    private http: HttpClient,
-    @Inject(API_URLS_TOKEN) private urls: API_URLS
-  ) {}
-
   public fetchMovies(): Observable<Movie[]> {
     return this.http
       .get<MoviesResponse>(this.urls.movies)
@@ -24,4 +19,9 @@ export class MoviesService {
         )
       );
   }
+
+  constructor(
+    private http: HttpClient,
+    @Inject(API_URLS_TOKEN) private urls: API_URLS
+  ) {}
 }
