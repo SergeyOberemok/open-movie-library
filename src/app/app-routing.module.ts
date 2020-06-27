@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./books/books.module').then((m) => m.BooksModule)
   },
+  {
+    path: 'saved-items',
+    loadChildren: () =>
+      import('./saved-items/saved-items.module').then((m) => m.SavedItemsModule)
+  },
   { path: '', redirectTo: 'movies', pathMatch: 'full' }
 ];
 

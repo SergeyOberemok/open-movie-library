@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromApp from 'src/app/reducers';
 import { selectBooks } from '../selectors';
 import * as BooksAction from '../actions';
+import * as SavedItemsAction from '../../saved-items/actions';
 
 @Component({
   selector: 'app-book-list',
@@ -21,5 +22,9 @@ export class BookListComponent implements OnInit {
     this.books$ = this.store.pipe(select(selectBooks));
 
     this.store.dispatch(BooksAction.loadBooks());
+  }
+
+  public bookClicked($event: MouseEvent, book: Book): void {
+    this.store.dispatch(SavedItemsAction.AddItem({ item: book }));
   }
 }

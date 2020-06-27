@@ -5,7 +5,7 @@ import { Book } from '../shared';
 export const booksFeatureKey = 'books';
 
 export interface State {
-  books: Book[]
+  books: Book[];
 }
 
 export const initialState: State = {

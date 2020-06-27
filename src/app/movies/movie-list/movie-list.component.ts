@@ -3,9 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromApp from 'src/app/reducers';
 import * as MoviesAction from '../actions';
-import * as fromMovies from '../reducers';
+import { selectMovies } from '../selectors';
 import { Movie } from '../shared';
-
+import * as SavedItemsAction from '../../saved-items/actions';
 
 @Component({
   selector: 'app-movie-list',
@@ -19,8 +19,12 @@ export class MovieListComponent implements OnInit {
   constructor(private store: Store<fromApp.State>) {}
 
   ngOnInit(): void {
-    this.movies$ = this.store.pipe(select(fromMovies.selectMovies));
+    this.movies$ = this.store.pipe(select(selectMovies));
 
     this.store.dispatch(MoviesAction.loadMovies());
+  }
+
+  public movieClicked($event: MouseEvent, movie: Movie): void {
+    this.store.dispatch(SavedItemsAction.AddItem({ item: movie }));
   }
 }

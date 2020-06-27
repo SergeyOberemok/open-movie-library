@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { BooksComponent } from './books.component';
-import { BookListComponent } from './book-list/book-list.component';
+import { SavedItemsComponent } from './saved-items.component';
+import { SavedItemListComponent } from './saved-item-list/saved-item-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: BooksComponent,
+    component: SavedItemsComponent,
     children: [
-      { path: 'list', component: BookListComponent },
+      { path: 'list', component: SavedItemListComponent },
       { path: '', redirectTo: 'list', pathMatch: 'full' }
     ]
   }
@@ -19,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BooksRoutingModule {}
+export class SavedItemsRoutingModule {}
