@@ -1,5 +1,11 @@
 <div class="wrapper mx-4">
   <ng-container *ngFor="let item of items$ | async">
-    <div>{{ item.title }}</div>
+    <ng-container *ngIf="item.isItem('movie')">
+      <app-movie-item-sm [movie]="item" (click)="itemClicked($event, item)"></app-movie-item-sm>
+    </ng-container>
+
+    <ng-container *ngIf="item.isItem('book')">
+      <app-book-item-sm [book]="item" (click)="itemClicked($event, item)"></app-book-item-sm>
+    </ng-container>
   </ng-container>
 </div>

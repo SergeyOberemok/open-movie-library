@@ -13,7 +13,10 @@ import { CoreModule } from './core/core.module';
 import { api_urls, API_URLS_TOKEN } from './core/shared';
 import { AppEffects } from './effects/app.effects';
 import * as fromApp from './reducers';
+import { SavedItemsModule } from './saved-items/saved-items.module';
 import { InMemoryMockService } from './services/in-memory-mock.service';
+import { MoviesModule } from './movies/movies.module';
+import { BooksModule } from './books/books.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +39,10 @@ import { InMemoryMockService } from './services/in-memory-mock.service';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
     FontAwesomeModule,
-    CoreModule
+    CoreModule,
+    MoviesModule,
+    BooksModule,
+    SavedItemsModule
   ],
   providers: [
     {

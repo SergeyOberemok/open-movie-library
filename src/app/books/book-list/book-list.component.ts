@@ -3,7 +3,7 @@ import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import * as AppAction from 'src/app/actions';
 import * as fromApp from 'src/app/reducers';
-import * as SavedItemsAction from '../../saved-items/actions';
+import * as SavedItemsAction from 'src/app/saved-items/actions';
 import * as BooksAction from '../actions';
 import { selectBooks } from '../selectors';
 import { Book } from '../shared';

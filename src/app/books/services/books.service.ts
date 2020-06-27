@@ -6,9 +6,7 @@ import { API_URLS, API_URLS_TOKEN } from 'src/app/core/shared';
 import { Filters } from 'src/app/shared';
 import { Book, BookDto, BooksResponse } from '../shared';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BooksService {
   public fetchBooks(
     filters: Filters = new Filters({ search: 'lord of the ring' })

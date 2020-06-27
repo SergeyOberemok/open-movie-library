@@ -4,5 +4,9 @@
     <div>{{ book.author_name }}</div>
     <div>{{ book.first_publish_year }}</div>
     <div>{{ book.language }}</div>
+
+    <button (click)="addToMyListClicked($event, book)">
+      <fa-icon class="text-gray-500 hover:text-gray-800" [icon]="faIcons.heart"></fa-icon>
+    </button>
   </ng-container>
 </div>

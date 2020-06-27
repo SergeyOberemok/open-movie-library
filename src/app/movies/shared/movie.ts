@@ -1,3 +1,5 @@
+import { Item } from 'src/app/core/shared';
+
 export interface MovieDto {
   Title: string;
   Year: string;
@@ -6,7 +8,7 @@ export interface MovieDto {
   Poster: string;
 }
 
-export class Movie implements MovieDto {
+export class Movie extends Item implements MovieDto {
   Title: string;
   Year: string;
   imdbID: string;
@@ -15,5 +17,9 @@ export class Movie implements MovieDto {
 
   public get id(): string {
     return this.imdbID;
+  }
+
+  constructor() {
+    super('movie');
   }
 }

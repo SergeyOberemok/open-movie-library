@@ -1,3 +1,5 @@
+import { Item } from 'src/app/core/shared';
+
 export interface BookDto {
   author_name: string[];
   author_key: string[];
@@ -6,7 +8,7 @@ export interface BookDto {
   language: string[];
 }
 
-export class Book implements BookDto {
+export class Book extends Item implements BookDto {
   author_name: string[];
   author_key: string[];
   title: string;
@@ -15,5 +17,9 @@ export class Book implements BookDto {
 
   public get id(): string {
     return this.title;
+  }
+
+  constructor() {
+    super('book');
   }
 }

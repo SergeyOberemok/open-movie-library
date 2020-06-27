@@ -5,5 +5,9 @@
     <div>{{ movie.Type }}</div>
     <div>{{ movie.imdbID }}</div>
     <img [src]="movie.Poster" [alt]="movie.Title">
+
+    <button (click)="addToMyListClicked($event, movie)">
+      <fa-icon class="text-gray-500 hover:text-gray-800" [icon]="faIcons.heart"></fa-icon>
+    </button>
   </ng-container>
 </div>

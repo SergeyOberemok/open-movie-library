@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { BookItemComponent } from '../books/book-item/book-item.component';
+import { MovieItemComponent } from '../movies/movie-item/movie-item.component';
 import { SavedItemsComponent } from './saved-items.component';
-import { SavedItemListComponent } from './saved-item-list/saved-item-list.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'saved-items',
     component: SavedItemsComponent,
     children: [
-      { path: 'list', component: SavedItemListComponent },
+      { path: 'movie/:id', component: MovieItemComponent },
+      { path: 'book/:id', component: BookItemComponent },
       { path: '', redirectTo: 'list', pathMatch: 'full' }
     ]
   }

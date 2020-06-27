@@ -5,7 +5,7 @@ import { BooksComponent } from './books.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'books',
     component: BooksComponent,
     children: [{ path: 'book/:id', component: BookItemComponent }]
   }

@@ -5,15 +5,21 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CoreModule } from '../core/core.module';
 import { MoviesEffects } from './effects/movies.effects';
+import { MovieItemSmComponent } from './movie-item-sm/movie-item-sm.component';
+import { MovieItemComponent } from './movie-item/movie-item.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
 import * as fromMovies from './reducers';
 import { MoviesService } from './services/movies.service';
-import { MovieItemComponent } from './movie-item/movie-item.component';
 
 @NgModule({
-  declarations: [MoviesComponent, MovieListComponent, MovieItemComponent],
+  declarations: [
+    MoviesComponent,
+    MovieListComponent,
+    MovieItemComponent,
+    MovieItemSmComponent
+  ],
   imports: [
     CommonModule,
     MoviesRoutingModule,
@@ -22,6 +28,7 @@ import { MovieItemComponent } from './movie-item/movie-item.component';
     CoreModule,
     FontAwesomeModule
   ],
-  providers: [MoviesService]
+  providers: [MoviesService],
+  exports: [MoviesComponent, MovieItemComponent, MovieItemSmComponent]
 })
 export class MoviesModule {}
