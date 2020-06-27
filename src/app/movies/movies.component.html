@@ -1,13 +1,19 @@
-<div class="flex">
-  <app-year-picker (year)="yearPicked($event)" [reset]="reset$"></app-year-picker>
+<div class="wrapper w-full pt-4" [class.item-selected]="isItemSelected">
+  <div class="filters-wrapper flex flex-col sm:flex-row container mx-auto px-4 mb-5"
+  [ngClass]="{ 'md:flex-row md:justify-start': !isItemSelected, 'md:flex-col md:items-end': isItemSelected }">
+    <app-year-picker class="mr-0 sm:mr-10 mb-3 sm:mb-0 w-full sm:w-3/12"
+    [ngClass]="{ '': !isItemSelected, 'md:mr-0 md:mb-4': isItemSelected }"
+    (year)="yearPicked($event)" [reset]="reset$">
+    </app-year-picker>
 
-  <app-genre (genre)="genrePicked($event)" [icon]="faIcons.film" [genres]="genres" [reset]="reset$"></app-genre>
+    <!-- <app-genre class="mr-0 sm:mr-10 mb-3 sm:mb-0 w-full sm:w-3/12" (genre)="genrePicked($event)" [icon]="faIcons.film" [genres]="genres" [reset]="reset$"></app-genre> -->
 
-  <button (click)="resetFilters()">
-    <fa-icon class="text-gray-500 hover:text-gray-800" [icon]="faIcons.times"></fa-icon>
-  </button>
+    <app-selected-filters (reset)="resetFilters()"></app-selected-filters>
+  </div>
+
+  <router-outlet></router-outlet>
 </div>
 
-<app-movie-list></app-movie-list>
-
-<router-outlet></router-outlet>
+<div class="list-wrapper" [ngClass]="{ 'md:ml-32': isItemSelected }">
+  <app-movie-list></app-movie-list>
+</div>

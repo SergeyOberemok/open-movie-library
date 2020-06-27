@@ -1,11 +1,14 @@
-<div class="wrapper">
+<div class="wrapper relative">
   <form [formGroup]="yearPickerForm">
-    <select [formControlName]="yearPickerControlName" (focus)="isFocus = true" (blur)="isFocus = false">
+    <label class="text-gray-400 absolute top-0 left-0 ml-1 pointer-events-none" *ngIf="!isFocus && !yearControl.value" for="yearPicker">Year</label>
+    <select id="yearPicker" class="appearance-none bg-transparent border-b pb-1 w-full focus:outline-none text-gray-100"
+    [ngClass]="{ 'border-gray-100': isFocus, 'border-gray-400': !isFocus }"
+    [formControlName]="yearPickerControlName" (focus)="isFocus = true" (blur)="isFocus = false">
       <ng-container *ngFor="let year of years">
-        <option [value]="year">{{ year }}</option>
+        <option class="text-gray-800" [value]="year">{{ year }}</option>
       </ng-container>
     </select>
 
-    <fa-icon class="text-gray-500" [ngClass]="{ 'text-gray-800': isFocus }" [icon]="faIcons.calendar"></fa-icon>
+    <fa-icon class="absolute right-0 top-0 mr-1 pointer-events-none" [ngClass]="{ 'text-gray-100': isFocus, 'text-gray-400': !isFocus }" [icon]="faIcons.calendar"></fa-icon>
   </form>
 </div>

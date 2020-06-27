@@ -1,17 +1,17 @@
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
   Input,
   OnDestroy,
-  Output,
-  EventEmitter
+  OnInit,
+  Output
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FaIcons } from '../shared';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { Subject, Observable } from 'rxjs';
-import { pluck, takeUntil, filter } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { filter, pluck, takeUntil } from 'rxjs/operators';
+import { FaIcons } from '../shared';
 
 const YEAR_FROM = 1970;
 
@@ -71,6 +71,10 @@ export class YearPickerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public get yearControl(): AbstractControl {
+    return this.yearPickerForm.get(this.yearPickerControlName);
   }
 
   private prepareYears(): number[] {

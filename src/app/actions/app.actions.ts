@@ -15,8 +15,13 @@ export const setGenre = createAction(
   props<{ genre: string }>()
 );
 
-export const resetFilters = createAction(
-  '[App] Reset Filters',
+export const resetFilters = createAction('[App] Reset Filters');
+
+export const setSelectedItemId = createAction(
+  '[App] Set Selected Item Id',
+  props<{ id: string }>()
 );
+
+export const resetSelectedItemId = createAction('[App] Reset Selected Item Id');
 
 export const SetFilterSuccess = createAction('[App] Set Filter Success');

@@ -1,4 +1,5 @@
 import { HttpParams } from '@angular/common/http';
+import { NameValuePair } from './name-value-pair';
 
 export interface FiltersDto {
   search?: string;
@@ -25,5 +26,12 @@ export class Filters implements FiltersDto {
     );
 
     return httpParams;
+  }
+
+  public toKeyValue(): NameValuePair<string | number>[] {
+    return Object.entries(this).map((entry: [string, string | number]) => ({
+      name: entry[0],
+      value: entry[1]
+    }));
   }
 }

@@ -1,20 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
-import { select, Store, ActionsSubject } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { ofType } from '@ngrx/effects';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as AppAction from 'src/app/actions';
 import * as fromApp from 'src/app/reducers';
+import { selectSelectedItemId } from 'src/app/selectors';
+import * as SavedItemsAction from '../../saved-items/actions';
 import * as MoviesAction from '../actions';
 import { selectMovies } from '../selectors';
 import { Movie } from '../shared';
-import * as SavedItemsAction from '../../saved-items/actions';
-import { ofType } from '@ngrx/effects';
-import * as AppAction from 'src/app/actions';
-import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -24,6 +25,7 @@ import { Router } from '@angular/router';
 })
 export class MovieListComponent implements OnInit, OnDestroy {
   public movies$: Observable<Movie[]>;
+  public selectedItemId: string;
 
   private destroy$: Subject<void> = new Subject();
 
@@ -41,6 +43,12 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.actions$
       .pipe(ofType(AppAction.SetFilterSuccess), takeUntil(this.destroy$))
       .subscribe(() => this.store.dispatch(MoviesAction.loadMovies()));
+
+    this.store
+      .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
+      .subscribe(
+        (selectedItemId: string) => (this.selectedItemId = selectedItemId)
+      );
   }
 
   ngOnDestroy(): void {

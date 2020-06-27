@@ -10,3 +10,8 @@ export const selectFilters = createSelector(
   (state: fromApp.State) =>
     Object.keys(state.filters).length > 0 ? state.filters : undefined
 );
+
+export const selectSelectedItemId = createSelector(
+  selectAppState,
+  (state: fromApp.State) => state.selectedItemId
+);

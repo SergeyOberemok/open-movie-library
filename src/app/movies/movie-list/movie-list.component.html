@@ -1,5 +1,6 @@
-<div class="wrapper px-4">
+<div class="wrapper container mx-auto px-4 md:px-40 lg:px-64">
   <ng-container *ngFor="let movie of movies$ | async">
-    <app-movie-item-sm (click)="movieClicked($event, movie)" [movie]="movie"></app-movie-item-sm>
+    <app-movie-item-sm class="mb-4" [ngClass]="{ 'active': movie.id === selectedItemId }" (click)="movieClicked($event, movie)"
+      [movie]="movie"></app-movie-item-sm>
   </ng-container>
 </div>

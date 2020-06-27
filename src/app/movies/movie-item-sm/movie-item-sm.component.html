@@ -1,1 +1,31 @@
-<div>{{ movie.Title }}</div>
+<div class="wrapper rounded-lg flex overflow-hidden shadow" [ngClass]="{ 'shadow-lg': isActive }">
+  <div class="image-wrapper w-40">
+    <img [src]="movie.Poster" [alt]="movie.Title">
+  </div>
+
+  <div class="content-wrapper w-full flex">
+    <div class="flex flex-col justify-between flex-grow py-3 px-5 md:py-5 md:px-8">
+      <div class="flex justify-between items-center">
+        <h3 class="title font-bold tracking-wider my-2 md:my-3">
+          {{ movie.Title }}
+        </h3>
+
+        <button (click)="addToMyListClicked($event, movie)">
+          <fa-icon class="heart-icon" [icon]="faIcons.heart"></fa-icon>
+        </button>
+      </div>
+
+      <div class="flex justify-between">
+        <div class="flex">
+          <span class="mr-2 md:mr-3">Type:</span>
+          <span>{{ movie.Type }}</span>
+        </div>
+
+        <div class="flex">
+          <span class="mr-2 md:mr-3">Year:</span>
+          <span>{{ movie.Year }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

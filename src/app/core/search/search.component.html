@@ -1,12 +1,11 @@
 <form class="w-full" [formGroup]="searchForm">
-  <div class="flex items-center border-b border-blue-500 pb-1">
+  <div class="flex items-center border-b pb-1"
+    [ngClass]="{ 'border-blue-100 md:border-blue-100': isFocus, 'border-blue-300 md:border-blue-200': !isFocus }">
     <input
-      class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-      type="text" [placeholder]="!isFocus ? 'Search' : ''" (focus)="isFocus = true" (blur)="isFocus = false" [formControlName]="searchControlName">
-    <button
-      class="text-gray-500 px-2"
-      [ngClass]="{ 'text-gray-800': isFocus }"
-      type="button">
+      class="appearance-none bg-transparent border-none w-full text-blue-300 md:text-blue-200 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      type="text" [placeholder]="!isFocus ? 'Search' : ''" (focus)="isFocus = true" (blur)="isFocus = false"
+      [formControlName]="searchControlName">
+    <button class="px-2" [ngClass]="{ 'text-blue-300 md:text-blue-200': !isFocus, 'text-blue-100 md:text-blue-100': isFocus }" type="button">
       <fa-icon [icon]="faIcons.search"></fa-icon>
     </button>
   </div>

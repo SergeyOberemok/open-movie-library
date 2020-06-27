@@ -13,10 +13,12 @@ export const appFeatureKey = 'app';
 
 export interface State {
   filters: Filters;
+  selectedItemId: string;
 }
 
 export const initialState: State = {
-  filters: new Filters()
+  filters: new Filters(),
+  selectedItemId: ''
 };
 
 export const appReducer = createReducer(
@@ -38,6 +40,15 @@ export const appReducer = createReducer(
   on(AppAction.resetFilters, (state: State) => ({
     ...state,
     filters: new Filters()
+  })),
+
+  on(AppAction.setSelectedItemId, (state: State, { id }: { id: string }) => ({
+    ...state,
+    selectedItemId: id
+  })),
+  on(AppAction.resetSelectedItemId, (state: State) => ({
+    ...state,
+    selectedItemId: ''
   }))
 );
 

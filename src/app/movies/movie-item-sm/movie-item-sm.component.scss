@@ -1,0 +1,50 @@
+// TODO: resolve problem with scss paths
+
+:host(.active) {
+  @media screen and (min-width: 768px) {
+    .wrapper {
+      margin: 0 -30px;
+    }
+  }
+
+  .content-wrapper {
+    background: white;
+    color: darken(gray, 25);
+  }
+
+  .heart-icon {
+    color: gray;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+:host {
+  display: block;
+
+  .content-wrapper {
+    background: darken(rgb(135, 128, 128), 10);
+    background: radial-gradient(
+      circle,
+      darken(rgba(135, 128, 128, 1), 10) 0%,
+      rgba(55, 55, 55, 1) 100%
+    );
+    color: darken(white, 10);
+  }
+
+  .heart-icon {
+    color: gray;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    text-shadow: 1px 1px 2px black;
+  }
+}
