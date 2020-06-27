@@ -12,4 +12,8 @@ export class Book implements BookDto {
   title: string;
   first_publish_year: number;
   language: string[];
+
+  public get id(): string {
+    return this.title;
+  }
 }

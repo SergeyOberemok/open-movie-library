@@ -14,6 +14,7 @@ import * as SavedItemsAction from '../../saved-items/actions';
 import { ofType } from '@ngrx/effects';
 import * as AppAction from 'src/app/actions';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -28,7 +29,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromApp.State>,
-    private actions$: ActionsSubject
+    private actions$: ActionsSubject,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   public movieClicked($event: MouseEvent, movie: Movie): void {
+    this.router.navigate([`/movies/movie/${movie.id}`]);
+  }
+
+  public addToMyListClicked($event: MouseEvent, movie: Movie): void {
     this.store.dispatch(SavedItemsAction.AddItem({ item: movie }));
   }
 }

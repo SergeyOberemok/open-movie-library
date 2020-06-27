@@ -9,9 +9,10 @@ import { BooksRoutingModule } from './books-routing.module';
 import { BooksComponent } from './books.component';
 import { BooksEffects } from './effects/books.effects';
 import * as fromBooks from './reducers/books.reducer';
+import { BookItemComponent } from './book-item/book-item.component';
 
 @NgModule({
-  declarations: [BooksComponent, BookListComponent],
+  declarations: [BooksComponent, BookListComponent, BookItemComponent],
   imports: [
     CommonModule,
     BooksRoutingModule,

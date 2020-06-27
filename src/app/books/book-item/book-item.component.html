@@ -1,0 +1,8 @@
+<div class="wrapper">
+  <ng-container *ngIf="(book$ | async) as book">
+    <div>{{ book.title }}</div>
+    <div>{{ book.author_name }}</div>
+    <div>{{ book.first_publish_year }}</div>
+    <div>{{ book.language }}</div>
+  </ng-container>
+</div>

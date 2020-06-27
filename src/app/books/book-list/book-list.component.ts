@@ -9,6 +9,7 @@ import { selectBooks } from '../selectors';
 import { Book } from '../shared';
 import { ofType } from '@ngrx/effects';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -23,7 +24,8 @@ export class BookListComponent implements OnInit {
 
   constructor(
     private store: Store<fromApp.State>,
-    private actions$: ActionsSubject
+    private actions$: ActionsSubject,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,10 @@ export class BookListComponent implements OnInit {
   }
 
   public bookClicked($event: MouseEvent, book: Book): void {
+    this.router.navigate([`/books/book/${book.id}`]);
+  }
+
+  public addToMyListClicked($event: MouseEvent, book: Book): void {
     this.store.dispatch(SavedItemsAction.AddItem({ item: book }));
   }
 }

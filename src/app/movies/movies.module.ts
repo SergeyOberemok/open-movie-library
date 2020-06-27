@@ -10,9 +10,10 @@ import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
 import * as fromMovies from './reducers';
 import { MoviesService } from './services/movies.service';
+import { MovieItemComponent } from './movie-item/movie-item.component';
 
 @NgModule({
-  declarations: [MoviesComponent, MovieListComponent],
+  declarations: [MoviesComponent, MovieListComponent, MovieItemComponent],
   imports: [
     CommonModule,
     MoviesRoutingModule,

@@ -1,0 +1,9 @@
+<div class="wrapper">
+  <ng-container *ngIf="(movie$ | async) as movie">
+    <div>{{ movie.Title }}</div>
+    <div>{{ movie.Year }}</div>
+    <div>{{ movie.Type }}</div>
+    <div>{{ movie.imdbID }}</div>
+    <img [src]="movie.Poster" [alt]="movie.Title">
+  </ng-container>
+</div>
