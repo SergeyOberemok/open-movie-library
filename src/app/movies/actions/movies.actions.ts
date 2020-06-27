@@ -3,7 +3,8 @@ import { createAction, props } from '@ngrx/store';
 import { Movie } from '../shared';
 
 export const loadMovies = createAction(
-  '[Movies] Load Movies'
+  '[Movies] Load Movies',
+  (search = '') => ({ search })
 );
 
 export const loadMoviesSuccess = createAction(

@@ -1,0 +1,13 @@
+<form class="w-full" [formGroup]="searchForm">
+  <div class="flex items-center border-b border-blue-500 pb-1">
+    <input
+      class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      type="text" [placeholder]="!isFocus ? 'Search' : ''" (focus)="isFocus = true" (blur)="isFocus = false" [formControlName]="searchControlName">
+    <button
+      class="text-gray-500 px-2"
+      [ngClass]="{ 'text-gray-800': isFocus }"
+      type="button">
+      <fa-icon [icon]="faIcons.search"></fa-icon>
+    </button>
+  </div>
+</form>

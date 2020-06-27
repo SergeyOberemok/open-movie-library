@@ -1,11 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Book } from '../shared';
-import { Store, select } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+import * as AppAction from 'src/app/actions';
 import * as fromApp from 'src/app/reducers';
-import { selectBooks } from '../selectors';
-import * as BooksAction from '../actions';
 import * as SavedItemsAction from '../../saved-items/actions';
+import * as BooksAction from '../actions';
+import { selectBooks } from '../selectors';
+import { Book } from '../shared';
+import { ofType } from '@ngrx/effects';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-book-list',
@@ -16,12 +19,26 @@ import * as SavedItemsAction from '../../saved-items/actions';
 export class BookListComponent implements OnInit {
   public books$: Observable<Book[]>;
 
-  constructor(private store: Store<fromApp.State>) {}
+  private destroy$: Subject<void> = new Subject();
+
+  constructor(
+    private store: Store<fromApp.State>,
+    private actions$: ActionsSubject
+  ) {}
 
   ngOnInit(): void {
     this.books$ = this.store.pipe(select(selectBooks));
 
     this.store.dispatch(BooksAction.loadBooks());
+
+    this.actions$
+      .pipe(ofType(AppAction.SetFilterSuccess), takeUntil(this.destroy$))
+      .subscribe(() => this.store.dispatch(BooksAction.loadBooks()));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public bookClicked($event: MouseEvent, book: Book): void {

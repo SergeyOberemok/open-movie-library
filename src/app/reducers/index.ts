@@ -1,5 +1,1 @@
-export interface State {
-
-}
-
-export const initialState: State = {};
+export * from './app.reducer';

@@ -7,6 +7,7 @@ import { BooksRoutingModule } from './books-routing.module';
 import { BooksComponent } from './books.component';
 import { BooksEffects } from './effects/books.effects';
 import * as fromBooks from './reducers/books.reducer';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [BooksComponent, BookListComponent],
@@ -14,7 +15,8 @@ import * as fromBooks from './reducers/books.reducer';
     CommonModule,
     BooksRoutingModule,
     EffectsModule.forFeature([BooksEffects]),
-    StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.reducer)
+    StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.reducer),
+    CoreModule
   ]
 })
 export class BooksModule {}

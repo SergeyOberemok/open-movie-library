@@ -8,6 +8,7 @@ import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesComponent } from './movies.component';
 import * as fromMovies from './reducers';
 import { MoviesService } from './services/movies.service';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [MoviesComponent, MovieListComponent],
@@ -15,7 +16,8 @@ import { MoviesService } from './services/movies.service';
     CommonModule,
     MoviesRoutingModule,
     StoreModule.forFeature(fromMovies.moviesFeatureKey, fromMovies.reducer),
-    EffectsModule.forFeature([MoviesEffects])
+    EffectsModule.forFeature([MoviesEffects]),
+    CoreModule
   ],
   providers: [MoviesService]
 })
