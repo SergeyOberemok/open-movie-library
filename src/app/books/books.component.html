@@ -1,1 +1,11 @@
+<div class="flex">
+  <app-year-picker (year)="yearPicked($event)" [reset]="reset$"></app-year-picker>
+
+  <app-genre (genre)="genrePicked($event)" [icon]="faIcons.book" [genres]="genres" [reset]="reset$"></app-genre>
+
+  <button (click)="resetFilters()">
+    <fa-icon class="text-gray-500 hover:text-gray-800" [icon]="faIcons.times"></fa-icon>
+  </button>
+</div>
+
 <router-outlet></router-outlet>

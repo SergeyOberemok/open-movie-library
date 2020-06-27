@@ -2,14 +2,16 @@ import { HttpParams } from '@angular/common/http';
 
 export interface FiltersDto {
   search?: string;
-  year?: string;
+  year?: number;
   type?: string;
+  genre?: string;
 }
 
 export class Filters implements FiltersDto {
   search?: string;
-  year?: string;
+  year?: number;
   type?: string;
+  genre?: string;
 
   constructor(params?: FiltersDto) {
     Object.assign(this, params);

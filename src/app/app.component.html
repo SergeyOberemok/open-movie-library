@@ -9,7 +9,7 @@
     <a class="text-blue-500" routerLink="saved-items">My list</a>
   </li>
   <li>
-    <app-search></app-search>
+    <app-search (search)="searchUpdated($event)"></app-search>
   </li>
 </ul>
 

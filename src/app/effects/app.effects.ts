@@ -8,7 +8,7 @@ import * as AppAction from '../actions';
 export class AppEffects {
   setFilter$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AppAction.setSearch),
+      ofType(AppAction.setSearch, AppAction.setYear, AppAction.setGenre),
       mergeMap(() => of(AppAction.SetFilterSuccess()))
     );
   });

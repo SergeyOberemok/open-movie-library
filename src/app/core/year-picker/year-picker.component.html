@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <form [formGroup]="yearPickerForm">
+    <select [formControlName]="yearPickerControlName" (focus)="isFocus = true" (blur)="isFocus = false">
+      <ng-container *ngFor="let year of years">
+        <option [value]="year">{{ year }}</option>
+      </ng-container>
+    </select>
+
+    <fa-icon class="text-gray-500" [ngClass]="{ 'text-gray-800': isFocus }" [icon]="faIcons.calendar"></fa-icon>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <form [formGroup]="genreForm">
+    <select [formControlName]="genreControlName" (focus)="isFocus = true" (blur)="isFocus = false">
+      <ng-container *ngFor="let genre of genres">
+        <option [value]="genre">{{ genre }}</option>
+      </ng-container>
+    </select>
+
+    <fa-icon class="text-gray-500" [ngClass]="{ 'text-gray-800': isFocus }" [icon]="faIcon"></fa-icon>
+  </form>
+</div>

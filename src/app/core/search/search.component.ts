@@ -1,17 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  OnDestroy,
   OnInit,
-  OnDestroy
+  Output
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FaIcons } from '../shared';
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import * as fromApp from 'src/app/reducers';
-import * as AppAction from '../../actions';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  pluck,
+  takeUntil
+} from 'rxjs/operators';
+import { FaIcons } from '../shared';
 
 @Component({
   selector: 'app-search',
@@ -20,6 +24,8 @@ import * as AppAction from '../../actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  @Output() search: EventEmitter<string> = new EventEmitter();
+
   public searchForm: FormGroup;
   public faIcons: FaIcons;
   public isFocus: boolean;
@@ -27,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private fb: FormBuilder, private store: Store<fromApp.State>) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
@@ -39,12 +45,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     };
 
     this.searchForm.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
-      .subscribe((form: { [key: string]: string }) =>
-        this.store.dispatch(
-          AppAction.setSearch({ search: form[this.searchControlName] })
-        )
-      );
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        pluck(this.searchControlName),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((search: string) => this.search.emit(search));
   }
 
   ngOnDestroy(): void {

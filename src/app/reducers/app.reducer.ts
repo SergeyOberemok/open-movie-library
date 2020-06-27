@@ -25,6 +25,19 @@ export const appReducer = createReducer(
   on(AppAction.setSearch, (state: State, { search }: { search: string }) => ({
     ...state,
     filters: new Filters({ ...state.filters, search })
+  })),
+  on(AppAction.setYear, (state: State, { year }: { year: number }) => ({
+    ...state,
+    filters: new Filters({ ...state.filters, year })
+  })),
+  on(AppAction.setGenre, (state: State, { genre }: { genre: string }) => ({
+    ...state,
+    filters: new Filters({ ...state.filters, genre })
+  })),
+
+  on(AppAction.resetFilters, (state: State) => ({
+    ...state,
+    filters: new Filters()
   }))
 );
 
