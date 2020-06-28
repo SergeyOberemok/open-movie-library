@@ -1,11 +1,14 @@
-<div class="wrapper">
+<div class="wrapper relative">
   <form [formGroup]="genreForm">
-    <select [formControlName]="genreControlName" (focus)="isFocus = true" (blur)="isFocus = false">
+    <label class="text-gray-500 text-lg text-opacity-75 absolute top-0 left-0 ml-1 pointer-events-none" *ngIf="!isFocus && !genreControl.value" for="itemType">Type</label>
+    <select id="itemType" class="appearance-none bg-transparent border-b pb-1 w-full focus:outline-none text-gray-100"
+    [ngClass]="{ 'border-gray-100': isFocus, 'border-gray-400': !isFocus }"
+    [formControlName]="genreControlName" (focus)="isFocus = true" (blur)="isFocus = false">
       <ng-container *ngFor="let genre of genres">
-        <option [value]="genre">{{ genre }}</option>
+        <option class="text-gray-800" [value]="genre">{{ genre }}</option>
       </ng-container>
     </select>
 
-    <fa-icon class="text-gray-500" [ngClass]="{ 'text-gray-800': isFocus }" [icon]="faIcon"></fa-icon>
+    <fa-icon class="absolute right-0 top-0 mr-1 pointer-events-none" [ngClass]="{ 'text-gray-100': isFocus, 'text-gray-400': !isFocus }" [icon]="faIcon"></fa-icon>
   </form>
 </div>

@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
@@ -22,7 +24,9 @@ import { Movie } from '../shared';
 })
 export class MovieItemSmComponent implements OnInit, OnDestroy {
   @Input() movie: Movie;
+  @Output() add: EventEmitter<Movie> = new EventEmitter();
   @HostBinding('class.active') isActive: boolean;
+  public imgDefault: string;
 
   public faIcons: FaIcons;
 
@@ -42,6 +46,6 @@ export class MovieItemSmComponent implements OnInit, OnDestroy {
   }
 
   public addToMyListClicked($event: MouseEvent, movie: Movie): void {
-    this.store.dispatch(SavedItemsAction.AddItem({ item: movie }));
+    this.add.emit(movie);
   }
 }

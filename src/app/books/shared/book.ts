@@ -19,6 +19,10 @@ export class Book extends Item implements BookDto {
     return this.title;
   }
 
+  public getTitle(): string {
+    return this.title;
+  }
+
   constructor() {
     super('book');
   }

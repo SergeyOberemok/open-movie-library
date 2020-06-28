@@ -3,10 +3,12 @@
   [ngClass]="{ 'md:flex-row md:justify-start': !isItemSelected, 'md:flex-col md:items-end': isItemSelected }">
     <app-year-picker class="mr-0 sm:mr-10 mb-3 sm:mb-0 w-full sm:w-3/12"
     [ngClass]="{ '': !isItemSelected, 'md:mr-0 md:mb-4': isItemSelected }"
-    (year)="yearPicked($event)" [reset]="reset$">
+    (year)="yearPicked($event)">
     </app-year-picker>
 
-    <!-- <app-genre class="mr-0 sm:mr-10 mb-3 sm:mb-0 w-full sm:w-3/12" (genre)="genrePicked($event)" [icon]="faIcons.film" [genres]="genres" [reset]="reset$"></app-genre> -->
+    <app-genre class="mr-0 sm:mr-10 mb-3 sm:mb-0 w-full sm:w-3/12"
+    [ngClass]="{ '': !isItemSelected, 'md:mr-0 md:mb-4': isItemSelected }"
+    (genre)="typePicked($event)" [icon]="faIcons.film" [genres]="genres"></app-genre>
 
     <app-selected-filters (reset)="resetFilters()"></app-selected-filters>
   </div>

@@ -1,17 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as fromApp from 'src/app/reducers';
 import * as AppAction from '../actions';
 import { FaIcons } from '../core/shared';
-import * as fromApp from '../reducers';
 import { selectSelectedItemId } from '../selectors';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies',
@@ -24,12 +24,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
   public genres: string[];
   public isItemSelected: boolean;
 
-  public get reset$(): Observable<void> {
-    return this._reset$.asObservable();
-  }
-
   private destroy$: Subject<void> = new Subject();
-  private _reset$: Subject<void> = new Subject();
 
   constructor(private store: Store<fromApp.State>) {}
 
@@ -38,7 +33,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       film: faFilm
     };
 
-    this.genres = ['love', 'horror', 'romantic'];
+    this.genres = ['movie', 'series', 'episode'];
 
     this.store
       .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
@@ -54,12 +49,11 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.store.dispatch(AppAction.setYear({ year }));
   }
 
-  public genrePicked(genre: string): void {
-    this.store.dispatch(AppAction.setGenre({ genre }));
+  public typePicked(type: string): void {
+    this.store.dispatch(AppAction.setType({ itemType: type }));
   }
 
   public resetFilters(): void {
-    this._reset$.next();
     this.store.dispatch(AppAction.resetFilters());
   }
 }

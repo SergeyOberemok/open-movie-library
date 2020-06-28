@@ -7,11 +7,14 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
-import { Observable, Subject } from 'rxjs';
-import { pluck, takeUntil, filter } from 'rxjs/operators';
+import { ofType } from '@ngrx/effects';
+import { ActionsSubject } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { filter, pluck, takeUntil } from 'rxjs/operators';
+import * as AppAction from 'src/app/actions';
 
 @Component({
   selector: 'app-genre',
@@ -22,7 +25,6 @@ import { pluck, takeUntil, filter } from 'rxjs/operators';
 export class GenreComponent implements OnInit, OnDestroy {
   @Input() genres: string[] = [];
   @Input() icon: IconDefinition;
-  @Input() reset: Observable<void>;
   @Output() genre: EventEmitter<string> = new EventEmitter();
 
   public genreForm: FormGroup;
@@ -35,7 +37,7 @@ export class GenreComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private actions$: ActionsSubject) {}
 
   ngOnInit(): void {
     this.genreForm = this.fb.group({
@@ -50,13 +52,17 @@ export class GenreComponent implements OnInit, OnDestroy {
       )
       .subscribe((genre: string) => this.genre.emit(genre));
 
-    this.reset
-      .pipe(takeUntil(this.destroy$))
+    this.actions$
+      .pipe(ofType(AppAction.resetFilters), takeUntil(this.destroy$))
       .subscribe(() => this.genreForm.reset());
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public get genreControl(): AbstractControl {
+    return this.genreForm.get(this.genreControlName);
   }
 }

@@ -15,10 +15,13 @@ const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(MoviesAction.loadMovies, state => state),
+  on(MoviesAction.loadMovies, (state) => state),
   on(MoviesAction.loadMoviesSuccess, (state: State, { movies }) => ({
     ...state,
     movies
   })),
-  on(MoviesAction.loadMoviesFailure, (state, action) => state)
+  on(MoviesAction.loadMoviesFailure, (state, action) => ({
+    ...state,
+    movies: []
+  }))
 );

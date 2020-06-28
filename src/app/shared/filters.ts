@@ -18,12 +18,20 @@ export class Filters implements FiltersDto {
     Object.assign(this, params);
   }
 
-  public getHttpParams(): HttpParams {
-    const httpParams: HttpParams = new HttpParams();
+  public getHttpParams(additionalParams: [string, string][] = []): HttpParams {
+    let httpParams: HttpParams = new HttpParams();
 
-    Object.entries(this).forEach((item: string[]) =>
-      httpParams.set(item[0], item[1].toString())
+    Object.entries(this).forEach(
+      (item: string[]) =>
+        (httpParams = httpParams.set(item[0], item[1].toString()))
     );
+
+    if (additionalParams && additionalParams.length > 0) {
+      additionalParams.forEach(
+        (item: string[]) =>
+          (httpParams = httpParams.set(item[0], item[1].toString()))
+      );
+    }
 
     return httpParams;
   }

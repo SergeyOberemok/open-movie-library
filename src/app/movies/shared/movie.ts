@@ -19,6 +19,10 @@ export class Movie extends Item implements MovieDto {
     return this.imdbID;
   }
 
+  public getTitle(): string {
+    return this.Title;
+  }
+
   constructor() {
     super('movie');
   }

@@ -1,6 +1,6 @@
 <div class="wrapper rounded-lg flex overflow-hidden shadow" [ngClass]="{ 'shadow-lg': isActive }">
   <div class="image-wrapper w-40">
-    <img [src]="movie.Poster" [alt]="movie.Title">
+    <img [src]="imgDefault || movie.Poster" [alt]="movie.Title" (error)="imgDefault = 'assets/notFound.png'">
   </div>
 
   <div class="content-wrapper w-full flex">

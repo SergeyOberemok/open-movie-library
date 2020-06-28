@@ -9,8 +9,11 @@ import {
 } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { Observable, Subject } from 'rxjs';
+import { ofType } from '@ngrx/effects';
+import { ActionsSubject } from '@ngrx/store';
+import { Subject } from 'rxjs';
 import { filter, pluck, takeUntil } from 'rxjs/operators';
+import * as AppAction from 'src/app/actions';
 import { FaIcons } from '../shared';
 
 const YEAR_FROM = 1970;
@@ -30,7 +33,6 @@ export class YearPickerComponent implements OnInit, OnDestroy {
 
     this._from = from;
   }
-  @Input() reset: Observable<void>;
   @Output() year: EventEmitter<number> = new EventEmitter();
 
   public yearPickerForm: FormGroup;
@@ -42,7 +44,7 @@ export class YearPickerComponent implements OnInit, OnDestroy {
   private _from = YEAR_FROM;
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private actions$: ActionsSubject) {}
 
   ngOnInit(): void {
     this.yearPickerForm = this.fb.group({
@@ -63,8 +65,8 @@ export class YearPickerComponent implements OnInit, OnDestroy {
       )
       .subscribe((year: number) => this.year.emit(year));
 
-    this.reset
-      .pipe(takeUntil(this.destroy$))
+    this.actions$
+      .pipe(ofType(AppAction.resetFilters), takeUntil(this.destroy$))
       .subscribe(() => this.yearPickerForm.reset());
   }
 

@@ -1,12 +1,11 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as SavedItemsActions from '../actions';
-import { Movie } from 'src/app/movies/shared';
-import { Book } from 'src/app/books/shared';
+import { SavedItem } from '../shared';
 
 export const savedItemsFeatureKey = 'savedItems';
 
 export interface State {
-  items: Movie[] | Book[];
+  items: SavedItem[];
 }
 
 export const initialState: State = {
@@ -16,8 +15,34 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  on(SavedItemsActions.AddItem, (state: State, { item }) => ({
-    ...state,
-    items: [...state.items, item]
-  }))
+  on(SavedItemsActions.AddItem, (state: State, { item }) => {
+    const updatedState = {
+      ...state,
+      items: [...state.items]
+    };
+    const index = state.items.findIndex(
+      (storedItem: SavedItem) => item.id === storedItem.id
+    );
+
+    if (index >= 0) {
+      updatedState.items.splice(index, 1);
+    } else {
+      updatedState.items.push(item);
+    }
+
+    return updatedState;
+  }),
+  on(SavedItemsActions.RemoveItem, (state: State, { item }) => {
+    const updatedState = {
+      ...state,
+      items: [...state.items]
+    };
+    const index = state.items.indexOf(item);
+
+    if (index >= 0) {
+      updatedState.items.splice(index, 1);
+    }
+
+    return updatedState;
+  })
 );

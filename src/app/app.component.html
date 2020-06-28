@@ -1,24 +1,27 @@
-<div class="menu-wrapper w-full bg-gray-900 md:bg-transparent shadow md:shadow-none relative md:h-auto" [class.h-16]="!isMenuOpened">
+<div class="menu-wrapper w-full bg-gray-900 md:bg-transparent shadow md:shadow-none relative md:h-auto"
+  [class.h-16]="!isMenuOpened">
   <button class="hamburher border border-blue-200 rounded-lg px-2 py-1 absolute top-0 right-0 mt-4 mr-4 block sm:hidden"
     (click)="isMenuOpened = !isMenuOpened">
-      <fa-icon class="text-blue-200" [icon]="faIcons.bars"></fa-icon>
-    </button>
+    <fa-icon class="text-blue-200" [icon]="faIcons.bars"></fa-icon>
+  </button>
 
   <div class="menu container mx-auto flex flex-col sm:flex-row justify-between py-3 px-4"
-   [class.active]="isMenuOpened">
-    <ul class="w-full sm:items-center flex flex-col sm:flex-row mb-3 sm:mb-0">
+    [ngClass]="{ 'md:flex-col md:items-end': isItemSelected }" [class.active]="isMenuOpened">
+    <ul class="sm:items-center flex flex-col sm:flex-row mb-3 sm:mb-0"
+    [ngClass]="{ 'md:mb-3': isItemSelected }">
       <li class="mr-6 mb-3 sm:mb-0">
         <a class="text-blue-300 md:text-blue-200 hover:text-blue-100" routerLink="movies">Movies</a>
       </li>
-      <li class="mr-6 mb-3 sm:mb-0">
+      <!-- TODO: add books -->
+      <!-- <li class="mr-6 mb-3 sm:mb-0">
         <a class="text-blue-300 md:text-blue-200 hover:text-blue-100" routerLink="books">Books</a>
-      </li>
-      <li class="mr-6 mb-3 sm:mb-0">
+      </li> -->
+      <li class="mb-3 sm:mb-0">
         <a class="text-blue-300 md:text-blue-200 hover:text-blue-100" routerLink="saved-items">My list</a>
       </li>
     </ul>
 
-    <app-search class="w-4/12" (search)="searchUpdated($event)"></app-search>
+    <app-search class="w-4/12 md:w-3/12" (search)="searchUpdated($event)"></app-search>
   </div>
 </div>
 

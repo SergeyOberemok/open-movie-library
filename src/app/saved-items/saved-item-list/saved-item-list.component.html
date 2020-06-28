@@ -1,11 +1,23 @@
-<div class="wrapper mx-4">
-  <ng-container *ngFor="let item of items$ | async">
+<div class="wrapper container mx-auto px-4 md:px-40 lg:px-64">
+  <ng-container *ngIf="(items$ | async) as items">
+    <ng-container *ngTemplateOutlet="items.length > 0 ? list : empty; context: { $implicit: items } "></ng-container>
+  </ng-container>
+</div>
+
+<ng-template #list let-items>
+  <ng-container *ngFor="let item of items">
     <ng-container *ngIf="item.isItem('movie')">
-      <app-movie-item-sm [movie]="item" (click)="itemClicked($event, item)"></app-movie-item-sm>
+      <app-movie-item-sm class="mb-4" [movie]="item" [ngClass]="{ 'active': item.id === selectedItemId }"
+        (click)="itemClicked($event, item)" (add)="addToMyListClicked($event)"></app-movie-item-sm>
     </ng-container>
 
     <ng-container *ngIf="item.isItem('book')">
-      <app-book-item-sm [book]="item" (click)="itemClicked($event, item)"></app-book-item-sm>
+      <app-book-item-sm class="mb-4" [book]="item" [ngClass]="{ 'active': item.id === selectedItemId }"
+        (click)="itemClicked($event, item)"></app-book-item-sm>
     </ng-container>
   </ng-container>
-</div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="text-gray-300">List is empty</div>
+</ng-template>

@@ -41,7 +41,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.store.dispatch(MoviesAction.loadMovies());
 
     this.actions$
-      .pipe(ofType(AppAction.SetFilterSuccess), takeUntil(this.destroy$))
+      .pipe(ofType(AppAction.SetFilterSuccess, AppAction.resetFilters), takeUntil(this.destroy$))
       .subscribe(() => this.store.dispatch(MoviesAction.loadMovies()));
 
     this.store
@@ -60,7 +60,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.router.navigate([`/movies/movie/${movie.id}`]);
   }
 
-  public addToMyListClicked($event: MouseEvent, movie: Movie): void {
+  public addToMyListClicked(movie: Movie): void {
     this.store.dispatch(SavedItemsAction.AddItem({ item: movie }));
   }
 }

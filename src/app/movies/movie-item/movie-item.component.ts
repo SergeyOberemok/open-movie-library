@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { select, Store } from '@ngrx/store';
@@ -20,18 +24,21 @@ import { Movie } from '../shared';
 export class MovieItemComponent implements OnInit {
   public movie$: Observable<Movie>;
   public faIcons: FaIcons;
+  public imgDefault: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromApp.State>
+    private store: Store<fromApp.State>,
   ) {}
 
   ngOnInit(): void {
     this.movie$ = this.route.paramMap.pipe(
-      tap((params: ParamMap) =>
-        this.store.dispatch(
-          AppAction.setSelectedItemId({ id: params.get('id') })
+      tap(
+        (params: ParamMap) => (
+          this.store.dispatch(
+            AppAction.setSelectedItemId({ id: params.get('id') })
+          )
         )
       ),
       switchMap((params: ParamMap) =>
@@ -50,7 +57,7 @@ export class MovieItemComponent implements OnInit {
   }
 
   public close($event: MouseEvent): void {
-    this.router.navigate(['../..'], { relativeTo: this.route })
+    this.router.navigate(['../..'], { relativeTo: this.route });
     this.store.dispatch(AppAction.resetSelectedItemId());
   }
 }

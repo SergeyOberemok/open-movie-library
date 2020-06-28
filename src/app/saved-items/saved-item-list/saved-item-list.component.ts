@@ -1,10 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as fromApp from 'src/app/reducers';
 import { selectSavedItems } from '../selectors';
 import { SavedItem } from '../shared';
 import { Router } from '@angular/router';
+import { selectSelectedItemId, selectSearchFilter } from 'src/app/selectors';
+import {
+  takeUntil,
+  tap,
+  withLatestFrom,
+  mergeMap,
+  concatMap
+} from 'rxjs/operators';
+import * as SavedItemsAction from '../actions';
+import * as AppAction from 'src/app/actions';
 
 @Component({
   selector: 'app-saved-item-list',
@@ -12,16 +28,39 @@ import { Router } from '@angular/router';
   styleUrls: ['./saved-item-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SavedItemListComponent implements OnInit {
+export class SavedItemListComponent implements OnInit, OnDestroy {
   public items$: Observable<SavedItem[]>;
+  public selectedItemId: string;
+
+  private destroy$: Subject<void> = new Subject();
 
   constructor(private store: Store<fromApp.State>, private router: Router) {}
 
   ngOnInit(): void {
-    this.items$ = this.store.pipe(select(selectSavedItems));
+    this.items$ = this.store.pipe(
+      select(selectSavedItems),
+      tap(() => this.store.dispatch(AppAction.resetSelectedItemId()))
+    );
+
+    this.store
+      .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
+      .subscribe(
+        (selectedItemId: string) => (this.selectedItemId = selectedItemId)
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public itemClicked($event: MouseEvent, item: SavedItem): void {
     this.router.navigate([`/saved-items/${item.itemType}/${item.id}`]);
+  }
+
+  public addToMyListClicked(item: SavedItem): void {
+    console.log('Update');
+
+    this.store.dispatch(SavedItemsAction.RemoveItem({ item }));
   }
 }

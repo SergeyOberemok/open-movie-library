@@ -1,3 +1,7 @@
-<app-saved-item-list></app-saved-item-list>
+<div class="wrapper w-full pt-4" [class.item-selected]="isItemSelected">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
+<div class="list-wrapper" [ngClass]="{ 'md:ml-32': isItemSelected }">
+  <app-saved-item-list></app-saved-item-list>
+</div>

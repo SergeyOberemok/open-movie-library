@@ -1,8 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { Movie } from 'src/app/movies/shared';
-import { Book } from 'src/app/books/shared';
+import { SavedItem } from '../shared';
 
 export const AddItem = createAction(
   '[SavedItems] Add Item',
-  props<{ item: Movie | Book }>()
+  props<{ item: SavedItem }>()
+);
+
+export const RemoveItem = createAction(
+  '[SavedItems] Remove Item',
+  props<{ item: SavedItem }>()
 );
