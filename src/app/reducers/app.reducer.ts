@@ -7,7 +7,7 @@ import {
 } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import * as AppAction from '../actions';
-import { Filters, FiltersDto } from '../shared';
+import { FiltersDto } from '../shared';
 
 export const appFeatureKey = 'app';
 

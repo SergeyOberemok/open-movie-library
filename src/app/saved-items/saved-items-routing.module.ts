@@ -6,14 +6,14 @@ import { SavedItemsComponent } from './saved-items.component';
 
 const routes: Routes = [
   {
-    path: 'saved-items',
+    path: '',
     component: SavedItemsComponent,
     children: [
       { path: 'movie/:id', component: MovieItemComponent },
-      { path: 'book/:id', component: BookItemComponent },
-      { path: '', redirectTo: 'list', pathMatch: 'full' }
+      { path: 'book/:id', component: BookItemComponent }
     ]
-  }
+  },
+  { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

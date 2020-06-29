@@ -4,7 +4,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ofType } from '@ngrx/effects';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
@@ -32,7 +32,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromApp.State>,
     private actions$: ActionsSubject,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +58,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   public movieClicked($event: MouseEvent, movie: Movie): void {
-    this.router.navigate([`/movies/movie/${movie.id}`]);
+    this.router.navigate([`./movie/${movie.id}`], { relativeTo: this.route });
   }
 
   public addToMyListClicked(movie: Movie): void {

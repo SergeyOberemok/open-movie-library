@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as SavedItemsActions from '../actions';
 import { SavedItem } from '../shared';
+import * as SavedItemsActions from '../actions';
 
 export const savedItemsFeatureKey = 'savedItems';
 
@@ -37,7 +37,9 @@ export const reducer = createReducer(
       ...state,
       items: [...state.items]
     };
-    const index = state.items.indexOf(item);
+    const index = state.items.findIndex(
+      (storedItem: SavedItem) => item.id === storedItem.id
+    );
 
     if (index >= 0) {
       updatedState.items.splice(index, 1);
