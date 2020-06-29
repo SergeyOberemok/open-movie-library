@@ -5,10 +5,11 @@ import { MoviesComponent } from './movies.component';
 
 const routes: Routes = [
   {
-    path: 'movies',
+    path: '',
     component: MoviesComponent,
     children: [{ path: 'movie/:id', component: MovieItemComponent }]
-  }
+  },
+  { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

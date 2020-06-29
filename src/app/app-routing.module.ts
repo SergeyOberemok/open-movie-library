@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SavedItemsComponent } from './saved-items/saved-items.component';
-import { MoviesComponent } from './movies/movies.component';
-import { BooksComponent } from './books/books.component';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: 'movies',
-    component: MoviesComponent
+    loadChildren: () =>
+      import('./movies/movies.module').then((m) => m.MoviesModule)
   },
   {
     path: 'books',
-    component: BooksComponent
+    loadChildren: () =>
+      import('./books/books.module').then((m) => m.BooksModule)
   },
   {
     path: 'saved-items',
-    component: SavedItemsComponent
+    loadChildren: () =>
+      import('./saved-items/saved-items.module').then((m) => m.SavedItemsModule)
   },
   { path: '', redirectTo: 'movies', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: true
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
