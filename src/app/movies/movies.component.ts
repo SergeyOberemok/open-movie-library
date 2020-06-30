@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit
+  OnInit,
+  ChangeDetectorRef
 } from '@angular/core';
 import { faFilm } from '@fortawesome/free-solid-svg-icons';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import * as fromApp from 'src/app/reducers';
 import * as AppAction from '../actions';
 import { FaIcons } from '../core/shared';
@@ -26,7 +27,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private store: Store<fromApp.State>) {}
+  constructor(
+    private store: Store<fromApp.State>,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.faIcons = {
@@ -37,7 +41,9 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     this.store
       .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
-      .subscribe((id: string) => (this.isItemSelected = !!id));
+      .subscribe(
+        (id: string) => ((this.isItemSelected = !!id), this.cd.detectChanges())
+      );
   }
 
   ngOnDestroy(): void {
