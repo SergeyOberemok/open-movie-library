@@ -10,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import * as fromApp from 'src/app/reducers';
 import { selectSavedItems } from '../selectors';
 import { SavedItem } from '../shared';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { selectSelectedItemId, selectSearchFilter } from 'src/app/selectors';
 import {
   takeUntil,
@@ -34,7 +34,12 @@ export class SavedItemListComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private store: Store<fromApp.State>, private router: Router) {}
+  constructor(
+    private store: Store<fromApp.State>,
+    private router: Router,
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.items$ = this.store.pipe(
@@ -45,7 +50,9 @@ export class SavedItemListComponent implements OnInit, OnDestroy {
     this.store
       .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
       .subscribe(
-        (selectedItemId: string) => (this.selectedItemId = selectedItemId)
+        (selectedItemId: string) => (
+          (this.selectedItemId = selectedItemId), this.cd.detectChanges()
+        )
       );
   }
 
@@ -59,8 +66,8 @@ export class SavedItemListComponent implements OnInit, OnDestroy {
   }
 
   public addToMyListClicked(item: SavedItem): void {
-    console.log('Update');
-
     this.store.dispatch(SavedItemsAction.RemoveItem({ item }));
+
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 }

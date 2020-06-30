@@ -2,13 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit
+  OnInit,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ofType } from '@ngrx/effects';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import * as AppAction from 'src/app/actions';
 import * as fromApp from 'src/app/reducers';
 import { selectSelectedItemId } from 'src/app/selectors';
@@ -33,7 +34,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
     private store: Store<fromApp.State>,
     private actions$: ActionsSubject,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -42,13 +44,18 @@ export class MovieListComponent implements OnInit, OnDestroy {
     this.store.dispatch(MoviesAction.loadMovies());
 
     this.actions$
-      .pipe(ofType(AppAction.SetFilterSuccess, AppAction.resetFilters), takeUntil(this.destroy$))
+      .pipe(
+        ofType(AppAction.SetFilterSuccess, AppAction.resetFilters),
+        takeUntil(this.destroy$)
+      )
       .subscribe(() => this.store.dispatch(MoviesAction.loadMovies()));
 
     this.store
       .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
       .subscribe(
-        (selectedItemId: string) => (this.selectedItemId = selectedItemId)
+        (selectedItemId: string) => (
+          (this.selectedItemId = selectedItemId), this.cd.detectChanges()
+        )
       );
   }
 
