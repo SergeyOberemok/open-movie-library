@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "open-library": {
+    "open-movie-library": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,20 +39,23 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/open-library",
+            "outputPath": "dist/open-movie-library",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            }
+            "extraWebpackConfig": "webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -86,27 +89,25 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "open-library:build",
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            }
+            "browserTarget": "open-movie-library:build",
+            "extraWebpackConfig": "webpack.config.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "open-library:build:production"
+              "browserTarget": "open-movie-library:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "open-library:build"
+            "browserTarget": "open-movie-library:build"
           }
         }
       }
     }
   },
-  "defaultProject": "open-library"
+  "defaultProject": "open-movie-library"
 }

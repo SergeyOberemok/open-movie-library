@@ -4,7 +4,7 @@ import { Movie } from '../shared';
 
 export const loadMovies = createAction(
   '[Movies] Load Movies',
-  (search = '') => ({ search })
+  (search: string = '') => ({ search })
 );
 
 export const loadMoviesSuccess = createAction(
