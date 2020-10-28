@@ -8,8 +8,18 @@ import { GenreComponent } from './genre/genre.component';
 import { SelectedFiltersComponent } from './selected-filters/selected-filters.component';
 
 @NgModule({
-  declarations: [SearchComponent, YearPickerComponent, GenreComponent, SelectedFiltersComponent],
+  declarations: [
+    SearchComponent,
+    YearPickerComponent,
+    GenreComponent,
+    SelectedFiltersComponent
+  ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
-  exports: [SearchComponent, YearPickerComponent, GenreComponent, SelectedFiltersComponent]
+  exports: [
+    SearchComponent,
+    YearPickerComponent,
+    GenreComponent,
+    SelectedFiltersComponent
+  ]
 })
 export class CoreModule {}

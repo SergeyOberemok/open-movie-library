@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BooksModule } from '../books/books.module';
 import { CoreModule } from '../core/core.module';
 import { MoviesModule } from '../movies/movies.module';
 import { SavedItemListComponent } from './saved-item-list/saved-item-list.component';
@@ -9,12 +8,6 @@ import { SavedItemsComponent } from './saved-items.component';
 
 @NgModule({
   declarations: [SavedItemsComponent, SavedItemListComponent],
-  imports: [
-    CommonModule,
-    SavedItemsRoutingModule,
-    CoreModule,
-    MoviesModule,
-    BooksModule
-  ]
+  imports: [CommonModule, SavedItemsRoutingModule, CoreModule, MoviesModule]
 })
 export class SavedItemsModule {}

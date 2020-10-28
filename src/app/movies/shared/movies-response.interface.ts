@@ -1,7 +1,7 @@
 import { MovieDto } from './movie';
 
 export interface MoviesResponse {
-  Search: MovieDto[],
+  Search: MovieDto[];
   totalResults: string;
   Response: string;
 }

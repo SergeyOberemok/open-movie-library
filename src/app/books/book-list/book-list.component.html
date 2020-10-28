@@ -1,5 +1,0 @@
-<div class="wrapper mx-4">
-  <ng-container *ngFor="let book of books$ | async">
-    <app-book-item-sm (click)="bookClicked($event, book)" [book]="book"></app-book-item-sm>
-  </ng-container>
-</div>

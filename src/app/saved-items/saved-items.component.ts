@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,12 +22,17 @@ export class SavedItemsComponent implements OnInit {
 
   private destroy$: Subject<void> = new Subject();
 
-  constructor(private store: Store<fromApp.State>, private cd: ChangeDetectorRef) {}
+  constructor(
+    private store: Store<fromApp.State>,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.store
       .pipe(select(selectSelectedItemId), takeUntil(this.destroy$))
-      .subscribe((id: string) => (this.isItemSelected = !!id, this.cd.detectChanges()));
+      .subscribe(
+        (id: string) => ((this.isItemSelected = !!id), this.cd.detectChanges())
+      );
   }
 
   ngOnDestroy(): void {

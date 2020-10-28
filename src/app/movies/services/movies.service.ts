@@ -24,7 +24,9 @@ export class MoviesService {
         })
       })
       .pipe(
-        map((response: MoviesResponse | any) => response.Error !== undefined ? throwError('response.Error'): response),
+        map((response: MoviesResponse | any) =>
+          response.Error !== undefined ? throwError('response.Error') : response
+        ),
         map((response: MoviesResponse) =>
           response.Search.map((movie: MovieDto) =>
             Object.assign(new Movie(), movie)

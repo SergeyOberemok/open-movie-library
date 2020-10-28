@@ -10,11 +10,6 @@
       <app-movie-item-sm class="mb-4" [movie]="item" [ngClass]="{ 'active': item.id === selectedItemId }"
         (click)="itemClicked($event, item)" (add)="addToMyListClicked($event)"></app-movie-item-sm>
     </ng-container>
-
-    <ng-container *ngIf="item.isItem('book')">
-      <app-book-item-sm class="mb-4" [book]="item" [ngClass]="{ 'active': item.id === selectedItemId }"
-        (click)="itemClicked($event, item)"></app-book-item-sm>
-    </ng-container>
   </ng-container>
 </ng-template>
 

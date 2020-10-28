@@ -9,12 +9,10 @@ export const environment = {
   mockServer: isMockServer,
   serverUrls: isMockServer
     ? {
-        movies: '/api/movies',
-        books: '/api/books'
+        movies: '/api/movies'
       }
     : {
-        movies: 'http://www.omdbapi.com',
-        books: 'https://openlibrary.org'
+        movies: 'http://www.omdbapi.com'
       }
 };
 

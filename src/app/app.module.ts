@@ -9,7 +9,6 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BooksModule } from './books/books.module';
 import { CoreModule } from './core/core.module';
 import { api_urls, API_URLS_TOKEN } from './core/shared';
 import { AppEffects } from './effects/app.effects';
@@ -46,7 +45,6 @@ import { InMemoryMockService } from './services/in-memory-mock.service';
     FontAwesomeModule,
     CoreModule,
     MoviesModule,
-    BooksModule,
     SavedItemsModule
   ],
   providers: [
