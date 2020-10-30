@@ -47,15 +47,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "extraWebpackConfig": "webpack.config.js"
+            "extraWebpackConfig": "webpack.config.js",
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
@@ -92,7 +90,10 @@
           "builder": "ngx-build-plus:dev-server",
           "options": {
             "browserTarget": "open-movie-library:build",
-            "extraWebpackConfig": "webpack.config.js"
+            "extraWebpackConfig": "webpack.config.js",
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            }
           },
           "configurations": {
             "production": {

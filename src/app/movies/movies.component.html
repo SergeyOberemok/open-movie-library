@@ -16,6 +16,6 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="list-wrapper" [ngClass]="{ 'md:ml-32': isItemSelected }">
+<div class="list-wrapper" [@enabledStateChange]="isItemSelected ? 'selected' : 'default'">
   <app-movie-list></app-movie-list>
 </div>

@@ -1,10 +1,20 @@
-<div class="wrapper rounded-lg flex overflow-hidden shadow" [ngClass]="{ 'shadow-lg': isActive }">
+<div
+  class="wrapper rounded-lg flex overflow-hidden shadow"
+  [ngClass]="{ 'shadow-lg': isActive }"
+  [@enabledStateChange]="isActive ? 'active' : 'inactive'"
+>
   <div class="image-wrapper w-40">
-    <img [src]="imgDefault || movie.Poster" [alt]="movie.Title" (error)="imgDefault = 'assets/notFound.png'">
+    <img
+      [src]="imgDefault || movie.Poster"
+      [alt]="movie.Title"
+      (error)="imgDefault = 'assets/notFound.png'"
+    />
   </div>
 
   <div class="content-wrapper w-full flex">
-    <div class="flex flex-col justify-between flex-grow py-3 px-5 md:py-5 md:px-8">
+    <div
+      class="flex flex-col justify-between flex-grow py-3 px-5 md:py-5 md:px-8"
+    >
       <div class="flex justify-between items-center">
         <h3 class="title font-bold tracking-wider my-2 md:my-3">
           {{ movie.Title }}

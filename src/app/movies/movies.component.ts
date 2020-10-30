@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +19,14 @@ import { selectSelectedItemId } from '../selectors';
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('enabledStateChange', [
+      state('default', style({ 'margin-left': 0 })),
+      state('selected', style({ 'margin-left': '100px' })),
+      transition('* => *', animate('300ms'))
+    ])
+  ]
 })
 export class MoviesComponent implements OnInit, OnDestroy {
   public faIcons: FaIcons;

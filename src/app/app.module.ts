@@ -17,11 +17,13 @@ import * as fromApp from './reducers';
 import * as fromSavedItems from './saved-items/reducers';
 import { SavedItemsModule } from './saved-items/saved-items.module';
 import { InMemoryMockService } from './services/in-memory-mock.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     !environment.production && environment.mockServer

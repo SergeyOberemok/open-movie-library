@@ -1,15 +1,16 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
-  ChangeDetectorRef
+  OnInit
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ofType } from '@ngrx/effects';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import * as AppAction from 'src/app/actions';
 import * as fromApp from 'src/app/reducers';
 import { selectSelectedItemId } from 'src/app/selectors';
@@ -22,7 +23,15 @@ import { Movie } from '../shared';
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fadeSlideIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate('500ms', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class MovieListComponent implements OnInit, OnDestroy {
   public movies$: Observable<Movie[]>;
@@ -70,5 +79,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   public addToMyListClicked(movie: Movie): void {
     this.store.dispatch(SavedItemsAction.AddItem({ item: movie }));
+  }
+
+  public trackByFn(movie: Movie): string {
+    return movie.id;
   }
 }
